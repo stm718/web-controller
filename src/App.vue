@@ -33,7 +33,7 @@ export default {
     }
   },
   mounted: async function () {
-    PubSub.subscribe('01239e5f3763f4c901/#').subscribe({
+    PubSub.subscribe('data/+').subscribe({
       next: data => {
         this.temperture = data.value.data
         console.log('Message received', data)
