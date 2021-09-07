@@ -23,23 +23,5 @@
       }
     }
   },
-  "hosting": {},
-  "api": {
-    "webControllerApi": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7,
-              "description": "da2-2mztoaij7zeoravt65wdam5yjm"
-            }
-          },
-          "additionalAuthenticationProviders": []
-        }
-      }
-    }
-  }
+  "hosting": {}
 }
