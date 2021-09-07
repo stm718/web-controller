@@ -1,0 +1,18 @@
+type Mutation {
+	createData(value: Float!, datetime: AWSDateTime!): SensorData
+}
+
+type Query {
+	getData(id: String!): SensorData
+}
+
+type SensorData {
+	id: String!
+	datetime: AWSDateTime
+	value: Float
+}
+
+type Subscription {
+	onCreateData: SensorData
+		@aws_subscribe(mutations: ["createData"])
+}
