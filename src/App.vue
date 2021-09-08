@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import awsconfig from './aws-exports'
-Amplify.configure(awsconfig)
+// import awsconfig from './aws-exports'
+// Amplify.configure(awsconfig)
 
 import Amplify, { API } from 'aws-amplify';
-import { onCreateTodo } from './graphql/subscriptions';
+import { onCreateData } from './graphql/subscriptions';
 
 Amplify.configure({
   aws_appsync_region: "ap-northeast-1",
@@ -28,6 +28,9 @@ Amplify.configure({
 
 export default {
   name: 'App',
+  created(){
+    this.subscribe()
+  },
   data: () => {
     return {
       temperture: "value",
@@ -37,11 +40,12 @@ export default {
   methods: {
     // other methods
     subscribe() {
-      API.graphql({ query: onCreateTodo })
+      API.graphql({ query: onCreateData })
         .subscribe({
           next: (eventData) => {
-            let sensor_data = eventData.value.data.onCreateTodo;
-            this.temperture = [...this.temperture, sensor_data];
+            let sensor_data = eventData.value.data.onCreateData;
+            console.log(sensor_data)
+            this.temperture = sensor_data.value;
           }
         });
     }
