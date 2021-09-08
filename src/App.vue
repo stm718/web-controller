@@ -13,38 +13,40 @@
 </template>
 
 <script>
-import awsconfig from './aws-exports'
-Amplify.configure(awsconfig)
+// import awsconfig from './aws-exports'
+// Amplify.configure(awsconfig)
 
-import Amplify, { PubSub } from 'aws-amplify';
-import { AWSIoTProvider } from '@aws-amplify/pubsub/lib/Providers';
+import Amplify, { API } from 'aws-amplify';
+import { onCreateData } from './graphql/subscriptions';
 
-Amplify.addPluggable(new AWSIoTProvider({
-  aws_pubsub_region: 'ap-northeast-1',
-  aws_pubsub_endpoint: 'wss://a361rf3knfpqtt-ats.iot.ap-northeast-1.amazonaws.com/mqtt',
-}));
+Amplify.configure({
+  aws_appsync_region: "ap-northeast-1",
+  aws_appsync_graphqlEndpoint: process.env.VUE_APP_APPSYNC_GRAPHQLENDPOINT,
+  aws_appsync_authenticationType: "API_KEY",
+  aws_appsync_apiKey: process.env.VUE_APP_APPSYNC_APIKEY,
+});
 
 export default {
   name: 'App',
+  created(){
+    this.subscribe()
+  },
   data: () => {
     return {
       temperture: "value",
       // acc: "value"
     }
   },
-  mounted: async function () {
-    PubSub.subscribe('data/+').subscribe({
-      next: data => {
-        this.temperture = data.value.data
-        console.log('Message received', data)
-      },
-      error: error => console.error(error),
-      close: () => console.log('Done'),
-    });
-  },
   methods: {
-    publish() {
-      PubSub.publish('cmd/device', "cmd");
+    // other methods
+    subscribe() {
+      API.graphql({ query: onCreateData })
+        .subscribe({
+          next: (eventData) => {
+            let sensor_data = eventData.value.data.onCreateData;
+            this.temperture = sensor_data.value;
+          }
+        });
     }
   }
 }
