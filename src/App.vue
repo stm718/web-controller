@@ -22,7 +22,7 @@ import { onCreateData } from './graphql/subscriptions';
 Amplify.configure({
   aws_appsync_region: "ap-northeast-1",
   aws_appsync_graphqlEndpoint: process.env.VUE_APP_APPSYNC_GRAPHQLENDPOINT,
-  aws_appsync_authenticationType: "API_KEY", 
+  aws_appsync_authenticationType: "API_KEY",
   aws_appsync_apiKey: process.env.VUE_APP_APPSYNC_APIKEY,
 });
 
@@ -44,7 +44,6 @@ export default {
         .subscribe({
           next: (eventData) => {
             let sensor_data = eventData.value.data.onCreateData;
-            console.log(sensor_data)
             this.temperture = sensor_data.value;
           }
         });
