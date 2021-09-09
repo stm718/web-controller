@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-      <div>
-        <h1>Web Controller</h1>
-      </div>
+      <Header></Header>
       <div>
         Temperture: {{temperture}}
       </div>
@@ -18,6 +16,7 @@
 
 import Amplify, { API } from 'aws-amplify';
 import { onCreateData } from './graphql/subscriptions';
+import Header from '@/components/Header'
 
 Amplify.configure({
   aws_appsync_region: "ap-northeast-1",
@@ -28,6 +27,9 @@ Amplify.configure({
 
 export default {
   name: 'App',
+  components: {
+    Header
+  },
   created(){
     this.subscribe()
   },
