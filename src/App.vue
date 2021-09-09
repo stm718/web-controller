@@ -1,22 +1,16 @@
 <template>
   <div id="app">
       <Header></Header>
-      <div>
-        Temperture: {{temperture}}
-      </div>
-      <!--<div>-->
-      <!--  Acc: {{acc}}-->
-      <!--</div>-->
+      <Body></Body>
   </div>
 </template>
 
 <script>
 // import awsconfig from './aws-exports'
 // Amplify.configure(awsconfig)
-
-import Amplify, { API } from 'aws-amplify';
-import { onCreateData } from './graphql/subscriptions';
+import Amplify from 'aws-amplify';
 import Header from '@/components/Header'
+import Body from '@/components/Body'
 
 Amplify.configure({
   aws_appsync_region: "ap-northeast-1",
@@ -28,28 +22,8 @@ Amplify.configure({
 export default {
   name: 'App',
   components: {
-    Header
-  },
-  created(){
-    this.subscribe()
-  },
-  data: () => {
-    return {
-      temperture: "value",
-      // acc: "value"
-    }
-  },
-  methods: {
-    // other methods
-    subscribe() {
-      API.graphql({ query: onCreateData })
-        .subscribe({
-          next: (eventData) => {
-            let sensor_data = eventData.value.data.onCreateData;
-            this.temperture = sensor_data.value;
-          }
-        });
-    }
+    Header,
+    Body
   }
 }
 </script>
