@@ -1,14 +1,40 @@
 <template>
   <div id="app">
+    <div id="nav">
       <Header></Header>
-      <Body></Body>
+      <router-link to="/">Dashboard</router-link> |
+      <router-link to="/auth">Sign In</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Amplify from 'aws-amplify';
 import Header from '@/components/Header'
-import Body from '@/components/Body'
+
+Amplify.configure({
+  aws_project_region: "ap-northeast-1",
+  aws_cognito_identity_pool_id: "ap-northeast-1:d3bbbae2-04a8-4757-9b34-ea9b7cd857f9",
+  aws_cognito_region: "ap-northeast-1",
+  aws_user_pools_id: "ap-northeast-1_Kl2FaZTQk",
+  aws_user_pools_web_client_id: "gihec5klm1ofl5nclmmb3m1hu",
+  oauth: {},
+  aws_cognito_login_mechanisms: [
+      "EMAIL"
+  ],
+  aws_cognito_signup_attributes: [
+      "EMAIL"
+  ],
+  aws_cognito_mfa_configuration: "OFF",
+  aws_cognito_mfa_types: [
+      "SMS"
+  ],
+  aws_cognito_password_protection_settings: {
+      "passwordPolicyMinLength": 8,
+      "passwordPolicyCharacters": []
+  },
+})
 
 if( process.env.VUE_APP_ENVIRONMENT === 'staging') {
   Amplify.configure({
@@ -30,8 +56,7 @@ if( process.env.VUE_APP_ENVIRONMENT === 'staging') {
 export default {
   name: 'App',
   components: {
-    Header,
-    Body
+    Header
   }
 }
 </script>
@@ -44,5 +69,18 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
