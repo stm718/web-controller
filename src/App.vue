@@ -10,14 +10,14 @@ import Amplify from 'aws-amplify';
 import Header from '@/components/Header'
 import Body from '@/components/Body'
 
-if( process.env.USER_BRANCH === 'default') {
+if( process.env.VUE_APP_ENVIRONMENT === 'staging') {
   Amplify.configure({
     aws_appsync_region: "ap-northeast-1",
     aws_appsync_graphqlEndpoint: process.env.VUE_APP_APPSYNC_GRAPHQLENDPOINT,
     aws_appsync_authenticationType: "API_KEY",
     aws_appsync_apiKey: process.env.VUE_APP_APPSYNC_APIKEY,
   });
-} else {
+} else if (process.env.VUE_APP_ENVIRONMENT === 'development'){
   console.warn("Local mode")
   Amplify.configure({
     aws_appsync_region: "ap-northeast-1",
