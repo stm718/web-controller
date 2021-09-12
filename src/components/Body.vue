@@ -11,6 +11,7 @@ import { onCreateData } from '@/graphql/subscriptions';
 import Chart from '@/components/Chart';
   
 export default {
+  name: 'Body',
   components: {
     Chart
   },
