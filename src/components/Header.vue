@@ -8,7 +8,7 @@
   export default {
     data: () => {
       return {
-        title: 'web-controller'
+        title: 'Web Controller'
       }
     }
   }
