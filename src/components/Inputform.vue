@@ -1,12 +1,20 @@
 <template>
   <div>
-    <h2>Angle</h2>
-    <input
-      v-model.number="angle"
-      type="number"
-      :min="0"
-      :max="180">
-    <button @click="publish">Send command</button>
+    <div>
+      <h2>Angle</h2>
+      <input
+        v-model.number="angle"
+        type="number"
+        :min="0"
+        :max="180">
+      <button @click="publish('angle')">Send command</button>
+    </div>
+    <div>
+      <h2>HVAC Status</h2>
+        <button @click="publish('standby')">Stand by</button>
+        <button @click="publish('heating')">Heat</button>
+        <button @click="publish('cooling')">Cool</button>
+    </div>
   </div>
 </template>
 
@@ -55,10 +63,52 @@ export default {
   },
   methods: {
     // コマンドをパブリッシュ
-    publish() {
-      PubSub.publish('cmd/device', {
-        angle: this.angle
-      });
+    publish(arg) {
+      let topic = ''
+      let payload = ''
+      switch(arg) {
+        case 'angle':
+          topic = '$aws/things/01239e5f3763f4c901/shadow/update'
+          payload = {
+            state: {
+              desired: {
+                angle: this.angle
+              }
+            }
+          }
+          break;
+        case 'standby':
+          topic = '$aws/things/01239e5f3763f4c901/shadow/update'
+          payload = {
+            state: {
+              desired: {
+                hvacStatus: "STANDBY"
+              }
+            }
+          }
+          break;
+        case 'heating':
+          topic = '$aws/things/01239e5f3763f4c901/shadow/update'
+          payload = {
+            state: {
+              desired: {
+                hvacStatus: "HEATING"
+              }
+            }
+          }
+          break;
+        case 'cooling':
+          topic = '$aws/things/01239e5f3763f4c901/shadow/update'
+          payload = {
+            state: {
+              desired: {
+                hvacStatus: "COOLING"
+              }
+            }
+          }
+          break;
+      }
+      PubSub.publish(topic, payload)
     }
   }
 }
