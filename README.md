@@ -8,4 +8,10 @@ A controller of machines through web browsers
 
 ## Demo
 
+### Dashboard
+
 ![Alt Text](img/demo.gif)
+
+### HVAC control
+
+![Alt Text](img/hvac.gif)
