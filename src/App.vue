@@ -3,7 +3,8 @@
     <div id="nav">
       <Header></Header>
       <router-link to="/">Dashboard</router-link> |
-      <router-link to="/auth">Sign In</router-link>
+      <router-link to="/auth">Sign In</router-link> |
+      <router-link to="/device">Device</router-link>
     </div>
     <router-view/>
   </div>

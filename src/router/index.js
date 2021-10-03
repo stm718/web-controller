@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import store from "@/store/index.js"
 import Body from '@/components/Body.vue'
 import Authenticate from '@/components/Authenticate.vue'
+import Inputform from '@/components/Inputform.vue'
 
 import { AmplifyEventBus } from 'aws-amplify-vue'
 import * as AmplifyModules from 'aws-amplify'
@@ -55,6 +56,11 @@ const routes = [
     path: '/auth',
     name: 'Authenticate',
     component: Authenticate
+  },
+  {
+    path: '/device',
+    name: 'Device',
+    component: Inputform
   }
 ]
 
