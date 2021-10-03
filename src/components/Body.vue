@@ -26,6 +26,8 @@ export default {
         maintainAspectRatio: false,
         scales: {
           xAxes: [{
+            categoryPercentage: 0.3,
+            barPercentage: 0.2,
             display: true,
             gridLines: {
               display: false
